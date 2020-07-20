@@ -1,7 +1,20 @@
+" This script is useful when you handle multiple lines of a text file with complex logic.
+" Usage: Add your own handle lines in #TODO block 
+" 1. :source sample_extended_with_python.vim
+"
+" 2. :call LinesHandle()
+" OR 
+" 2. :py handle_lines()
+" 
+" 
+" ALSO SEE :help python 
+"
+" ! Make sure your vim compiled with python supportted.
+"
+
 function! LinesHandle()
 python << EOF
 
-## SEE :help python 
 
 import vim
 
@@ -10,7 +23,7 @@ def handle_lines():
     lines = [line for line in b]
     hd_lines = []
     for line in lines:
-        # TODO: handle line
+        # TODO: your own handle lines
         hd_lines.append(line.upper())
 
     b[:] = hd_lines
