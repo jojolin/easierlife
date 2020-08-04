@@ -15,12 +15,12 @@ var pingpong = (function () {
             TODO: add your own inject code here.
             handle your datalogic.
              */
-            var handled_data = dataLogic(data);
+            var handledData = dataLogic(data);
 
             var xhr2 = new XMLHttpRequest();
             xhr2.open("POST", "http://your-own-serv-url");
             // send back handled data
-            xhr2.send(handled_data);
+            xhr2.send(handledData);
 
             // keep going!
             _pingpong();
