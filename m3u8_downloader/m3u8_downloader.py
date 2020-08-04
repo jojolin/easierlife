@@ -1,5 +1,3 @@
-#
-
 import hashlib
 import os
 import os.path
@@ -34,17 +32,19 @@ def download(url):
 
     for line in m3u8_ts_lines:
         try:
-            save_fp = os.path.join(dir, line)
+            save_name = line.split('/')[-1] if line.startswith('http') else line
+            save_fp = os.path.join(dir, save_name)
             if os.path.exists(save_fp):
                 print(f"{line} already downloaded")
                 continue
-            ts_url = m3u8_head + '/' + line
+            ts_url = (m3u8_head + '/' + line) if not line.startswith('http') else line
             print(f'downloading {ts_url}')
             ts_resp = requests.get(ts_url, timeout=60, verify=False)
             with open(save_fp, 'wb') as w:
                 w.write(ts_resp.content)
             print(f'downloaded {ts_url}')
-        except:
+        except Exception as ex:
+            print(ex)
             print(f'download failed: {line}, skip')
 
     print("start to merge m3u8")
@@ -58,12 +58,13 @@ def merge(dir):
         ts_names = [x.strip() for x in r.readlines() if not x.startswith('#')]
 
     for name in ts_names:
-        fp = os.path.join(dir, name)
+        save_name = name.split('/')[-1] if name.startswith('http') else name
+        fp = os.path.join(dir, save_name)
         if not os.path.exists(fp):
             continue
         with open(fp, 'rb') as r:
             merge_fo.write(r.read())
-            print(f'merge {name}')
+            print(f'merge {save_name}')
     merge_fo.close()
     print(f'save merge ts to {merge_fp}')
 
