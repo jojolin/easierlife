@@ -1,5 +1,5 @@
 # easierlife
-Work to make life easier.
+Life Is Hard, Make Life Easier.
 (Working on ...)
 
 ## 内容概要
