@@ -10,18 +10,20 @@ var pingpong = (function () {
             // acquire the data
             var data = xhr.response;
             console.log(data);
+            if (data == '') {
+                console.log('no data available, loop');
+            } else {
+                /*
+                TODO: add your own inject code here.
+                handle your datalogic.
+                 */
+                var handledData = dataLogic(data);
 
-            /*
-            TODO: add your own inject code here.
-            handle your datalogic.
-             */
-            var handledData = dataLogic(data);
-
-            var xhr2 = new XMLHttpRequest();
-            xhr2.open("POST", "http://your-own-serv-url");
-            // send back handled data
-            xhr2.send(handledData);
-
+                var xhr2 = new XMLHttpRequest();
+                xhr2.open("POST", "http://your-own-serv-url");
+                // send back handled data
+                xhr2.send(handledData);
+            }
             // keep going!
             _pingpong();
 
