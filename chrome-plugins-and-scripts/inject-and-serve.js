@@ -12,6 +12,7 @@ var pingpong = (function () {
             console.log(data);
             if (data == '') {
                 console.log('no data available, loop');
+                setTimeout(_pingpong, 10000); // delay `timeout` to going!
             } else {
                 /*
                 TODO: add your own inject code here.
@@ -23,10 +24,9 @@ var pingpong = (function () {
                 xhr2.open("POST", "http://your-own-serv-url");
                 // send back handled data
                 xhr2.send(handledData);
+                // keep going!
+                _pingpong();
             }
-            // keep going!
-            _pingpong();
-
         };
         xhr.send();
     }
