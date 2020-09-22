@@ -72,7 +72,11 @@ def download(url):
             if os.path.exists(save_fp):
                 print(f"{line} already downloaded")
                 continue
-            ts_url = (m3u8_head + '/' + line) if not line.startswith('http') else line
+            if line.startswith('/'):
+                m3u8_head = url[: url.find('/', len('https://'))]
+            else:
+                m3u8_head += '/'
+            ts_url = (m3u8_head + line) if not line.startswith('http') else line
             print(f'downloading {ts_url}')
             ts_resp = requests.get(ts_url, headers=headers, timeout=60, verify=False)
             with open(save_fp, 'wb') as w:
